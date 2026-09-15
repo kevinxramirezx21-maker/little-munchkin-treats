@@ -91,7 +91,11 @@ const REMOTE_IMAGES = {
   logo: "images/logo.jpg",
   favicon: "images/favicon.png"
 };
-const img = (key) => (window.LMT_IMAGES && LMT_IMAGES[key]) || REMOTE_IMAGES[key] || `images/${key}.jpg`;
+
+function img(key) {
+  const pack = window.LMT_IMAGES || {};
+  return pack[key] || pack.hero || pack.logo || REMOTE_IMAGES[key] || "images/hero-pops.jpg";
+}
 
 const state = {
   page: "home",
@@ -248,7 +252,8 @@ function hydrateImages() {
     el.src = img(el.dataset.img);
   });
   const fav = document.getElementById("favicon");
-  if (fav && window.LMT_IMAGES && LMT_IMAGES.favicon) fav.href = LMT_IMAGES.favicon;
+  const pack = window.LMT_IMAGES || {};
+  if (fav && (pack.favicon || pack.logo)) fav.href = pack.favicon || pack.logo;
 }
 
 window.addEventListener("DOMContentLoaded", () => {
