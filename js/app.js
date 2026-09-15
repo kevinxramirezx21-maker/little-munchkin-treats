@@ -5,7 +5,7 @@ const PRODUCTS = [
     price: 42,
     category: "cake-pops",
     min: 1,
-    blurb: "A baker’s dozen of hand-dipped vanilla cake pops with drizzle, hearts, and sprinkles.",
+    blurb: "A baker's dozen of hand-dipped vanilla cake pops with drizzle, hearts, and sprinkles.",
     img: "box",
     unit: "box of 12"
   },
@@ -81,7 +81,17 @@ const PRODUCTS = [
   }
 ];
 
-const img = (key) => (window.LMT_IMAGES && LMT_IMAGES[key]) || `images/${key}.jpg`;
+const REMOTE_IMAGES = {
+  hero: "images/hero-pops.jpg",
+  box: "images/box-pops.jpg",
+  chocolate: "images/chocolate-treats.jpg",
+  birthday: "images/birthday-pops.jpg",
+  flavors: "images/flavor-pops.jpg",
+  thankyou: "images/thankyou.jpg",
+  logo: "images/logo.jpg",
+  favicon: "images/favicon.png"
+};
+const img = (key) => (window.LMT_IMAGES && LMT_IMAGES[key]) || REMOTE_IMAGES[key] || `images/${key}.jpg`;
 
 const state = {
   page: "home",
@@ -238,7 +248,7 @@ function hydrateImages() {
     el.src = img(el.dataset.img);
   });
   const fav = document.getElementById("favicon");
-  if (fav && LMT_IMAGES?.favicon) fav.href = LMT_IMAGES.favicon;
+  if (fav && window.LMT_IMAGES && LMT_IMAGES.favicon) fav.href = LMT_IMAGES.favicon;
 }
 
 window.addEventListener("DOMContentLoaded", () => {
