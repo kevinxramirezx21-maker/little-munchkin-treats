@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Little Munchkin Treats · Cake Pops & More</title>
+  <meta name="description" content="Handmade cake pops and chocolate treats from Little Munchkin Treats. Order classic dozens, birthday pops, and custom party treats." />
+  <link id="favicon" rel="icon" href="images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#home" onclick="navigate('home')">
+        <img data-img="logo" alt="Little Munchkin Treats logo" />
+        <span class="brand-copy">
+          <small>Cake pops and more</small>
+          <strong>Little Munchkin Treats</strong>
+        </span>
+      </a>
+      <button class="btn btn-ghost menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')">Menu</button>
+      <nav class="nav-links" id="navLinks">
+        <a data-nav="home" href="#home" onclick="navigate('home')">Home</a>
+        <a data-nav="shop" href="#shop" onclick="navigate('shop')">Shop</a>
+        <a data-nav="custom" href="#custom" onclick="navigate('custom')">Custom orders</a>
+        <a data-nav="about" href="#about" onclick="navigate('about')">Our story</a>
+        <a data-nav="faq" href="#faq" onclick="navigate('faq')">FAQ</a>
+        <button class="cart-btn" onclick="toggleCart(true)">Treat box <span class="cart-count" id="cartCount">0</span></button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="page active" data-page="home">
+      <div class="hero">
+        <div>
+          <div class="eyebrow">♡ Handmade in Southern California</div>
+          <span class="script">thank you</span>
+          <h1>Little bites that make a whole party feel loved.</h1>
+          <p class="lead">Mom’s kitchen bakery for cake pops, chocolate-covered treats, and custom sweets for birthdays, baby showers, and “just because.”</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="navigate('shop')">Shop treats</button>
+            <button class="btn btn-ghost" onclick="navigate('custom')">Plan a custom order</button>
+          </div>
+          <div class="pills">
+            <span class="pill">Cake pops from $24 / 6</span>
+            <span class="pill">Pickup in Fontana area</span>
+            <span class="pill">48–72 hour notice</span>
+          </div>
+        </div>
+        <div class="hero-art">
+          <img data-img="hero" alt="Signature smiling cake pops" />
+          <div class="badge">
+            <b>The logo trio</b>
+            <span class="muted">Key lime · sprinkle · pink bow</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider">· · · ♡ · · ·</div>
+
+      <div class="section-head">
+        <h2>What we bake</h2>
+        <p>Pretty enough for the dessert table. Sweet enough that nobody leaves one behind.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Cake pops</h3>
+          <p class="muted">Soft cake, dipped in a candy shell, then decorated with drizzle, bows, sprinkles, and little faces.</p>
+        </article>
+        <article class="card">
+          <h3>Chocolate treats</h3>
+          <p class="muted">Strawberries, pretzel pops, bark, and truffles finished with the same pretty pink-and-brown look.</p>
+        </article>
+        <article class="card">
+          <h3>Custom parties</h3>
+          <p class="muted">Match a color palette, a character theme, or a “thank you” favor box. Minimum 12 pops.</p>
+        </article>
+      </div>
+
+      <div class="section-head" style="margin-top:36px">
+        <h2>A peek at the sweet table</h2>
+      </div>
+      <div class="gallery">
+        <img data-img="box" alt="Dozen decorated cake pops" />
+        <div class="gallery-side">
+          <img data-img="chocolate" alt="Chocolate treat sampler" />
+          <img data-img="birthday" alt="Birthday cake pops" />
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:22px">
+        <button class="btn btn-primary" onclick="navigate('shop')">Order a box</button>
+      </div>
+    </section>
+
+    <section class="page" data-page="shop">
+      <div class="section-head">
+        <div class="eyebrow">The shop</div>
+        <h2>Treats ready to order</h2>
+        <p>Add a box to your cart. After checkout we confirm by email or Instagram, then you pay by Zelle / Venmo / Cash App.</p>
+      </div>
+      <div class="filters">
+        <button class="filter active" onclick="state.filter='all';document.querySelectorAll('.filter').forEach(f=>f.classList.remove('active'));this.classList.add('active');renderProducts()">All</button>
+        <button class="filter" onclick="state.filter='cake-pops';document.querySelectorAll('.filter').forEach(f=>f.classList.remove('active'));this.classList.add('active');renderProducts()">Cake pops</button>
+        <button class="filter" onclick="state.filter='chocolate';document.querySelectorAll('.filter').forEach(f=>f.classList.remove('active'));this.classList.add('active');renderProducts()">Chocolate</button>
+        <button class="filter" onclick="state.filter='seasonal';document.querySelectorAll('.filter').forEach(f=>f.classList.remove('active'));this.classList.add('active');renderProducts()">Birthday</button>
+        <button class="filter" onclick="state.filter='custom';document.querySelectorAll('.filter').forEach(f=>f.classList.remove('active'));this.classList.add('active');renderProducts()">Custom</button>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <section class="page" data-page="custom">
+      <div class="section-head">
+        <div class="eyebrow">Made for your people</div>
+        <h2>Custom cake pops</h2>
+        <p>Tell us the party colors and we will sketch a set. Custom work needs at least 3 days.</p>
+      </div>
+      <div class="custom">
+        <div>
+          <img data-img="flavors" alt="Custom flavor cake pops" style="border-radius:28px;height:320px;object-fit:cover;width:100%">
+          <div class="card" style="margin-top:14px">
+            <h3>How custom works</h3>
+            <p class="muted">1. Send theme + date.<br>2. We quote colors and add-ons.<br>3. A small deposit holds the oven time.<br>4. Pickup in the Fontana / Inland Empire area.</p>
+          </div>
+        </div>
+        <form class="form" onsubmit="submitCustom(event)">
+          <div class="form-row">
+            <div><label>Name</label><input name="cname" required placeholder="Your name"></div>
+            <div><label>Phone</label><input name="cphone" required placeholder="(909) 555-0130"></div>
+          </div>
+          <div class="form-row">
+            <div><label>Theme</label><input name="theme" required placeholder="Baby shower, unicorn, team colors..."></div>
+            <div><label>Colors</label><input name="colors" placeholder="Blush, gold, mint"></div>
+          </div>
+          <div class="form-row">
+            <div><label>Quantity</label><input name="quantity" type="number" min="12" value="12"></div>
+            <div><label>Needed by</label><input name="cdate" type="date" required></div>
+          </div>
+          <div>
+            <label>Details</label>
+            <textarea name="details" placeholder="Allergies, faces vs no faces, bows, edible glitter, packaging..."></textarea>
+          </div>
+          <p class="notice">Custom pops start at $4.00 each, minimum 12. Character-heavy designs may be more.</p>
+          <button class="btn btn-primary" type="submit">Send custom request</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="page" data-page="about">
+      <div class="section-head">
+        <div class="eyebrow">A little kitchen with a lot of heart</div>
+        <h2>Our story</h2>
+      </div>
+      <div class="custom">
+        <div class="card">
+          <h3>Little Munchkin Treats</h3>
+          <p class="muted">This is Mom’s dessert shop — cake pops first, then the chocolate extras people keep asking for. Every pop is rolled, dipped, and decorated by hand so the tray looks like the logo: sweet, a little extra, and smiling.</p>
+          <p class="muted" style="margin-top:12px">We bake for birthdays, classroom parties, gender reveals, graduations, and thank-you boxes. If you found us on Instagram or TikTok, you are in the right place.</p>
+          <div class="pills" style="margin-top:16px">
+            <span class="pill">@littlemunchkintreats</span>
+            <span class="pill">@littlemunckintreats</span>
+          </div>
+        </div>
+        <div>
+          <img data-img="thankyou" alt="Thank you card" style="border-radius:28px;max-height:520px;object-fit:contain;background:white;padding:10px;border:1px solid #f3ddd6">
+        </div>
+      </div>
+    </section>
+
+    <section class="page" data-page="faq">
+      <div class="section-head">
+        <h2>Ordering notes</h2>
+        <p>Cottage-style bakery. Fresh, not factory.</p>
+      </div>
+      <div class="faq">
+        <details open><summary>How do I pay?</summary><p class="muted">Place the order here. We confirm availability, then send Zelle, Venmo, or Cash App details. Card checkout can be added later with Square or Stripe.</p></details>
+        <details><summary>Pickup or delivery?</summary><p class="muted">Pickup is in the Fontana / Inland Empire area. Local drop-off can be arranged for a small fee depending on distance and tray size.</p></details>
+        <details><summary>How far ahead should I order?</summary><p class="muted">Standard boxes: 48–72 hours. Custom themed pops: 3–7 days. Holiday weeks fill fast.</p></details>
+        <details><summary>Do you have allergens?</summary><p class="muted">Treats are made in a home kitchen that may handle wheat, dairy, eggs, soy, and traces of nuts. Tell us about allergies in the notes.</p></details>
+        <details><summary>Can I change colors?</summary><p class="muted">Yes. Add a note at checkout or use the custom form for full theme matching.</p></details>
+      </div>
+    </section>
+
+    <section class="page" data-page="checkout">
+      <div class="section-head">
+        <h2>Checkout</h2>
+        <p>This sends Mom an order request. Payment happens after she confirms the date.</p>
+      </div>
+      <div class="custom">
+        <div class="card" id="orderSummary"></div>
+        <form class="form" onsubmit="placeOrder(event)">
+          <div class="form-row">
+            <div><label>Name</label><input name="name" required></div>
+            <div><label>Phone</label><input name="phone" required></div>
+          </div>
+          <div><label>Email</label><input type="email" name="email" required></div>
+          <div class="form-row">
+            <div><label>Needed by</label><input type="date" name="date" required></div>
+            <div>
+              <label>Fulfillment</label>
+              <select name="fulfillment">
+                <option>Pickup — Fontana area</option>
+                <option>Local delivery (quote after order)</option>
+              </select>
+            </div>
+          </div>
+          <div><label>Notes</label><textarea name="notes" placeholder="Colors, allergies, gift message..."></textarea></div>
+          <p class="notice">No card is charged on this page yet. You will get a confirmation and a pay link / handle from Little Munchkin Treats.</p>
+          <button class="btn btn-primary" type="submit">Submit order request</button>
+          <div class="success-box" id="successBox">
+            Request saved on this device. Next, tap below to email the order so it actually reaches the kitchen.
+            <div style="margin-top:10px">
+              <a class="btn btn-primary" id="mailtoLink">Email the order</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <div>
+        <h3>Little Munchkin Treats</h3>
+        <p>Handmade cake pops and chocolate treats. Thank you so much for supporting this small business.</p>
+      </div>
+      <div>
+        <h3>Visit</h3>
+        <p>Fontana / Inland Empire, California<br>Pickup by appointment</p>
+      </div>
+      <div>
+        <h3>Stay connected</h3>
+        <p>
+          <a href="https://www.instagram.com/littlemunchkintreats" target="_blank" rel="noreferrer">Instagram</a><br>
+          <a href="https://www.tiktok.com/@littlemunckintreats" target="_blank" rel="noreferrer">TikTok</a><br>
+          <a href="mailto:hello@littlemunchkintreats.com">hello@littlemunchkintreats.com</a>
+        </p>
+      </div>
+    </div>
+    <div class="wrap tiny">© <span id="year"></span> Little Munchkin Treats. Your support means the world.</div>
+  </footer>
+
+  <div class="drawer-bg" id="drawerBg" onclick="toggleCart(false)"></div>
+  <aside class="drawer" id="drawer">
+    <header style="display:flex;justify-content:space-between;align-items:center">
+      <strong>Your treat box</strong>
+      <button class="btn btn-ghost" onclick="toggleCart(false)">Close</button>
+    </header>
+    <div class="drawer-items" id="cartItems"></div>
+    <footer>
+      <div class="price-row"><span>Total</span><strong id="cartTotal">$0.00</strong></div>
+      <button class="btn btn-primary" style="width:100%;margin-top:12px" onclick="checkout()">Checkout</button>
+    </footer>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="js/img-logo.js"></script>
+  <script src="js/img-favicon.js"></script>
+  <script src="js/img-hero.js"></script>
+  <script src="js/img-box.js"></script>
+  <script src="js/img-chocolate.js"></script>
+  <script src="js/img-birthday.js"></script>
+  <script src="js/img-flavors.js"></script>
+  <script src="js/img-thankyou.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
